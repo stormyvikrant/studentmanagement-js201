@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#navbar{
+    display: flex;
+    gap: 16px;
+    background-color: teal;
+
+}
+button{
+   background-color: aquamarine;
+   font-size: 28px;
+    padding: 5px 115px 5px 115px;
+    margin-top: 30px;
+}
+.link{
+    text-decoration: none;
+    color: yellow;
+    background-color: black;
+    font-size: 29px;
+}
+#container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: auto;
+    margin-top: 10px;
+    justify-items: auto;
+}
+img{
+    width: 350px;
+    height: 250px;
+    margin-top: 10px;
+} 
+h4,p{
+    font-size: 29px;
+}
+</style>
+<body>
+    <div id="navbar">
+        <a href="./form.html"  class="link">Student-Form</a>
+        <a href="./deshboard.html"  class="link">Deshboard</a>
+    </div>
+    <div id="container"></div>
+
+    <script>
+function appenddata(){
+    let data=JSON.parse(localStorage.getItem("students"))||[];
+    
+
+let containerdiv=document.getElementById("container")
+
+data.forEach(function (e,index) {
+    
+    let div=document.createElement("div")
+    let img=document.createElement("img")
+    img.src=e.image
+    let h4=document.createElement("p")
+    h4.innerText=e.name
+    let p=document.createElement("p")
+    p.innerText=e.batch
+
+    //button
+    let btn=document.createElement("button");
+    btn.innerText="Remove"
+btn.addEventListener("click",function(){
+    remove(index)
+});
+div.append(img,h4,p,btn) 
+containerdiv.append(div)
+
+});
+}
+appenddata()
+
+
+function remove(index){
+
+    let data=JSON.parse(localStorage.getItem("students"))||[];
+
+    let newData=data.filter(function(el,i){
+        if(i===index){
+                 let trash=JSON.parse(localStorage.getItem("trash"))||[];
+        trash.push(el)
+        localStorage.setItem("trash",JSON.stringify(trash));
+        }
+   return i !==index
+    })
+localStorage.setItem("students",JSON.stringify(newData))
+window.location.reload()
+}
+    </script>
+</body>
+</html>

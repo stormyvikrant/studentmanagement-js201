@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+      
+   
+
+ .btn{
+    margin-left: 40%;
+    padding: 5px 115px 5px 115px;
+    margin-top: 30px;
+}
+#navbar{
+    display: flex;
+    gap: 16px;
+    background-color: teal;
+
+}
+.link{
+    text-decoration: none;
+    color: yellow;
+    background-color: black;
+    font-size: 29px;
+  
+}
+form{
+    background-color: beige;
+   
+    border: 1px solid black;
+    width:50%;
+    margin: auto;
+    margin-top: 10%;
+
+  }
+   #name{
+    margin-left: 9.6%;
+
+   }
+   #image{
+    margin-left:10%;
+   }
+   #course{
+    margin-left: 8.5%;
+   }
+   #unit{
+    margin-left: 11.5%;
+   }
+   #batch{
+    margin-left: 10%;
+   }
+.heading{
+    margin-left: 30%;
+}
+.inputdiv{
+    margin-top: 10px;
+}
+
+</style>
+<body>
+     <div id="navbar">
+        <a href="./form.html"  class="link">Student-Form</a>
+        <a href="./deshboard.html"  class="link">Deshboard</a>
+    </div>
+    
+<form>
+    <h2 style="text-align: center;">Student-Form</h2>
+    <div class="inputdiv">
+    <label class="heading"> STUDENTT NAME</label>
+    <input type="text" placeholder=" Enter Student Name" id="name">
+    </div>
+<div class="inputdiv">
+    <label class="heading">STUDENT IMAGE</label>
+    <input type="text" placeholder="Enter image url" id="image">
+</div>
+<div class="inputdiv">
+    <label class="heading">STUDENT COURSE</label>
+    <input type="text" placeholder="Enter course" id="course">
+</div>
+ <div class="inputdiv">
+     <label class="heading"> STUDENT UNIT</label>
+    <input type="number" placeholder="Enter unit" id="unit">
+ </div>  
+ <div class="inputdiv"> 
+    <label class="heading"> STUDENT BATCH</label>
+   <input type="number" placeholder="Enter Batch" id="batch">
+</div> 
+
+   <input   class ="btn" type="submit" value="submit">
+
+</form>
+<script>     
+    document.querySelector("form").addEventListener("submit",submitformbtn);
+
+      var arr = JSON.parse(localStorage.getItem("students")) || [];
+    
+      
+    function StudentData(n,m,c,b,gr){
+    
+        this.name = n
+        this.image = m
+        this.course = c
+        this.batch  = `FT-Web${b}`
+        this.unit  = gr
+ 
+    }
+
+    function submitformbtn(event){
+        event.preventDefault()
+        var name = document.querySelector("#name").value;
+        var image = document.querySelector("#image").value;
+        var course = document.querySelector("#course").value;
+        var batch = document.querySelector("#batch").value;
+        var unit = document.querySelector("#unit").value;
+
+        var Students_datas = new StudentData(name,image,course,batch,unit)
+        arr.push(Students_datas)
+
+        console.log(arr)
+
+        localStorage.setItem("students",JSON.stringify(arr))
+window.location.reload()
+ }
+
+ //calculate
+
+ function calcultae(){
+    let data=JSON.parse(localStorage.getItem("students"))||[]
+
+    let obj={}
+    for(let i=0;i<data.length;i++){
+if(!obj[data[i].batch]){
+obj[data[i].batch]=0
+        }
+    }
+
+
+    for(let i=0;i<data.length;i++){
+        !obj[data[i].batch]++
+    }
+ }
+ calcultae()
+ 
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
